@@ -16,3 +16,18 @@ ID: a unique ID for the quote-response pair - {corpus}_{label}_{ID}. Each quote-
 Quote Text: the text of the dialogic parent of the response post, for contextResponse Text: the text of the response to the quote, annotated for sarcasm (i.e. the sarcasm label relates to this utterance)
 
 The corpus should be cited as: Shereen Oraby, Vrindavan Harrison, Lena Reed, Ernesto Hernandez, Ellen Riloff and Marilyn Walker. "Creating and Characterizing a Diverse Corpus of Sarcasm in Dialogue." In The 17th Annual SIGdial Meeting on Discourse and Dialogue (SIGDIAL), Los Angeles, California, USA, 2016.
+
+## Paper on quote-response pairs 
+
+This paper (https://arxiv.org/pdf/1708.05582.pdf) discusses some ways to deal with quote-response pairs similar to what we have. 
+
+We should consider word2vec and GloVe word embeddings (http://textminingonline.com/getting-started-with-word2vec-and-glove-in-python), as well as some sort of lexicon analysis (e.g. affect, sentiment, emotion, opinion analyses). 
+
+### word2vec resources
+
+Gensim documentation: https://radimrehurek.com/gensim/models/word2vec.html
+word2vec tutorial: https://rare-technologies.com/word2vec-tutorial/
+
+### GloVe resources
+
+Stanford NLP GloVe repository: https://github.com/stanfordnlp/GloVe
