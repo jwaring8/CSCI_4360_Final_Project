@@ -25,9 +25,10 @@ We should consider word2vec and GloVe word embeddings (http://textminingonline.c
 
 ### word2vec resources
 
-Gensim documentation: https://radimrehurek.com/gensim/models/word2vec.html
-word2vec tutorial: https://rare-technologies.com/word2vec-tutorial/
+* Gensim documentation: https://radimrehurek.com/gensim/models/word2vec.html
+* word2vec tutorial: https://rare-technologies.com/word2vec-tutorial/
+* How to Develop Word Embeddings in Python with Gensim: https://machinelearningmastery.com/develop-word-embeddings-python-gensim/
 
 ### GloVe resources
 
-Stanford NLP GloVe repository: https://github.com/stanfordnlp/GloVe
+* Stanford NLP GloVe repository: https://github.com/stanfordnlp/GloVe
