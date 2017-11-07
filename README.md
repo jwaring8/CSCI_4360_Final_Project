@@ -17,6 +17,10 @@ Quote Text: the text of the dialogic parent of the response post, for contextRes
 
 The corpus should be cited as: Shereen Oraby, Vrindavan Harrison, Lena Reed, Ernesto Hernandez, Ellen Riloff and Marilyn Walker. "Creating and Characterizing a Diverse Corpus of Sarcasm in Dialogue." In The 17th Annual SIGdial Meeting on Discourse and Dialogue (SIGDIAL), Los Angeles, California, USA, 2016.
 
+## Better Data
+
+Bigger dataset can be found here: http://nlp.cs.princeton.edu/SARC/2.0/
+
 ## Paper on quote-response pairs 
 
 This paper (https://arxiv.org/pdf/1708.05582.pdf) discusses some ways to deal with quote-response pairs similar to what we have. 
