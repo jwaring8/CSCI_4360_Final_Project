@@ -2,7 +2,9 @@
 
 ## Data 
 
-The sarcasm_v2.csv file in the data folder contains The Sarcasm Corpus V2, which is a subset of the Internet Argument Corpus. Each instance includes response text from quote-response pairs annotated for sarcasm. It contains data representing three categories of sarcasm: sarcasm, hyperbole, and rhetorical questions. 
+### IAC - Internet Argument Corpus
+
+The sarcasm_v2.csv file in the data/IAC folder contains The Sarcasm Corpus V2, which is a subset of the Internet Argument Corpus. Each instance includes response text from quote-response pairs annotated for sarcasm. It contains data representing three categories of sarcasm: sarcasm, hyperbole, and rhetorical questions. 
 
 The corpus is avaliable for download here: https://nlds.soe.ucsc.edu/sarcasm2
 
@@ -17,9 +19,13 @@ Quote Text: the text of the dialogic parent of the response post, for contextRes
 
 The corpus should be cited as: Shereen Oraby, Vrindavan Harrison, Lena Reed, Ernesto Hernandez, Ellen Riloff and Marilyn Walker. "Creating and Characterizing a Diverse Corpus of Sarcasm in Dialogue." In The 17th Annual SIGdial Meeting on Discourse and Dialogue (SIGDIAL), Los Angeles, California, USA, 2016.
 
-## Better Data
+### SARC
 
-Bigger dataset can be found here: http://nlp.cs.princeton.edu/SARC/2.0/
+The Self-Annotated Reddit Corpus (SARC), a large corpus for sarcasm research and for training and evaluating systems for sarcasm detection can be found here: http://nlp.cs.princeton.edu/SARC/2.0/
+
+The SARC-train.csv and SARC-test.csv files contains a sizeable subset of the larger SARC dataset and can be found in the data/SARC folder. Each statement is furthermore self-annotated -- sarcasm is labeled by the author and not an independent annotator. 
+
+Should be cited as: Khodak, M., Saunshi, N., & Vodrahalli, K. (2017). A Large Self-Annotated Corpus for Sarcasm. arXiv preprint arXiv:1704.05579.
 
 ## Paper on quote-response pairs 
 

@@ -1,67 +1,58 @@
-#import necessary libraries
 import pandas as pd
-from nltk.corpus import stopwords
-from nltk.tokenize.casual import TweetTokenizer
-from nltk.tokenize import word_tokenize
-from nltk.stem.porter import PorterStemmer
 
-#load in dataset and take a peek at it
-dataset = pd.read_csv('data/sarcasm_v2.csv')
-print('Dataset Head')
-print(dataset.head())
+file_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+comments_df = pd.DataFrame()
 
-#let's take a look at more specifics
-print('\n Number of Sarcastic v. Non-Sarcstic Comments')
-print(dataset['Label'].value_counts())
-print('\n Further Breakdown into Type of Comments')
-print(dataset['Corpus'].value_counts())
+for f in file_numbers:
+    print("Reading JSON file " + str(f))
+    path = 'data/SARC/comments_' + str(f) +'.json'
+    temp_df = pd.read_json(path, orient='index')
+    comments_df = comments_df.append(temp_df[['subreddit', 'text']])
 
-#get numpy arrays
-Y = dataset['Label'].values
-quotes = dataset['Quote Text'].values
-responses = dataset['Response Text'].values 
+    trainARR = pd.read_csv('data/SARC/train-balanced.csv').values
+testARR = pd.read_csv('data/SARC/test-balanced.csv').values
 
-#Two examples of potential tokenizers to use
-print("\n Tweet Tokenizer Example")
-print(TweetTokenizer().tokenize(quotes[0])) #tweet tokenizer to recogonize potential emoticons and 
-print("\n Word Tokenizer Example")
-print(word_tokenize(quotes[0])) #more standard tokenizer on punctuation and words
-
-#function for pre-processing text
-def preprocess_text(text, tokenizer, stopwords=stopwords.words("english"), stemmer=PorterStemmer()):
-    '''
-    This function will remove stopwords from the text and perform stemming. Return tokenized sentences. 
+for string in trainARR:
+    string[0] = string[0].split('|')
+for i in range(trainARR.shape[0]):
+    trainARR[i,0][0] = trainARR[i,0][0].split()
+    trainARR[i,0][1] = trainARR[i,0][1].split()
+    trainARR[i,0][2] = trainARR[i,0][2].split()
     
-    Params:
-    text -- string we are looking at 
-    tokenizer -- string of either 'twitter' or 'word' to specify which tokenizer to use
-    stopwords -- list of stopwords to remove, default is the NLTK stopwords list
-    stemmer -- stemming function to use, default is the PorterStemmer from NLTK
-    
-    Returns:
-    cleaned_text -- text with removed stopwords and applied stemming
-    
-    '''
-    #remove stopwords 
-    cleaned_text =  ' '.join([word for word in text.split() if word not in stopwords])
+for string in testARR:
+    string[0] = string[0].split('|')
+for i in range(testARR.shape[0]):
+    testARR[i,0][0] = testARR[i,0][0].split()
+    testARR[i,0][1] = testARR[i,0][1].split()
+    testARR[i,0][2] = testARR[i,0][2].split()
+
+data = {'Quote Text': [],
+        'Response Text': [],
+        'Subreddit': [],
+        'Label': []}
+
+for i in range(trainARR.shape[0]):
+    for j in range(2):
+        data['Quote Text'].append(comments_df.loc[[trainARR[i,0][0][0]]]['text'][0])
+        data['Response Text'].append(comments_df.loc[[trainARR[i,0][1][j]]]['text'][0])
+        data['Subreddit'].append(comments_df.loc[[trainARR[i,0][1][j]]]['subreddit'][0])
+        data['Label'].append(trainARR[i,0][2][j])
+
+SARC_DF = pd.DataFrame(data, columns=['Quote Text', 'Response Text', 'Subreddit', 'Label'])
+SARC_DF.to_csv('data/SARC/SARC-train.csv', mode='a', index= False, encoding='utf-8', header = False)
+
+data = {'Quote Text': [],
+        'Response Text': [],
+        'Subreddit': [],
+        'Label': []}
         
-    #perform stemming
-    if(tokenizer == 'twitter'):
-        tokens = TweetTokenizer().tokenize(cleaned_text)
-        stemmed_tokens = [stemmer.stem(i) for i in tokens]
-    elif(tokenizer == 'word'):
-        tokens = word_tokenize(cleaned_text)
-        stemmed_tokens = [stemmer.stem(i) for i in tokens]
-    
-    return stemmed_tokens
+for i in range(testARR.shape[0]):
+    for j in range(2):
+        data['Quote Text'].append(comments_df.loc[[testARR[i,0][0][0]]]['text'][0])
+        data['Response Text'].append(comments_df.loc[[testARR[i,0][1][j]]]['text'][0])
+        data['Subreddit'].append(comments_df.loc[[testARR[i,0][1][j]]]['subreddit'][0])
+        data['Label'].append(testARR[i,0][2][j])
 
-#call above function
-for i in range(quotes.shape[0]):
-    quotes[i] = preprocess_text(quotes[i], 'twitter')
-for i in range(responses.shape[0]):
-    responses[i] = preprocess_text(responses[i], 'twitter')
 
-#let's make sure we get what we expect: tokenized sentences with no stopwords and removed stems
-print("\n Check Result of Pre-Processing Text")
-print(quotes[0])
-print(responses[0])
+SARC_DF = pd.DataFrame(data, columns=['Quote Text', 'Response Text', 'Subreddit', 'Label'])
+SARC_DF.to_csv('data/SARC/SARC-test.csv', mode='a', index= False, encoding='utf-8', header = False)
