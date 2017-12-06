@@ -2,43 +2,28 @@
 
 ## Data 
 
-### IAC - Internet Argument Corpus
-
-The sarcasm_v2.csv file in the data/IAC folder contains The Sarcasm Corpus V2, which is a subset of the Internet Argument Corpus. Each instance includes response text from quote-response pairs annotated for sarcasm. It contains data representing three categories of sarcasm: sarcasm, hyperbole, and rhetorical questions. 
-
-The corpus is avaliable for download here: https://nlds.soe.ucsc.edu/sarcasm2
-
-Each download is a random sample of the full dataset. 
-
-The sample is a single CSV file with the following fields:
-
-Corpus: the corpus type - one of GEN (general sarcasm), HYP (hyperbole), and RQ (rhetorical questions).
-Label: the class label of the response utterance - one of "sarc" (sarcastic) or "notsarc" (not-sarcastic)
-ID: a unique ID for the quote-response pair - {corpus}_{label}_{ID}. Each quote-response is independent, i.e. pairs with the same ID numbers across different datasets are not related.
-Quote Text: the text of the dialogic parent of the response post, for contextResponse Text: the text of the response to the quote, annotated for sarcasm (i.e. the sarcasm label relates to this utterance)
-
-The corpus should be cited as: Shereen Oraby, Vrindavan Harrison, Lena Reed, Ernesto Hernandez, Ellen Riloff and Marilyn Walker. "Creating and Characterizing a Diverse Corpus of Sarcasm in Dialogue." In The 17th Annual SIGdial Meeting on Discourse and Dialogue (SIGDIAL), Los Angeles, California, USA, 2016.
-
 ### SARC
 
-The Self-Annotated Reddit Corpus (SARC), a large corpus for sarcasm research and for training and evaluating systems for sarcasm detection can be found here: http://nlp.cs.princeton.edu/SARC/2.0/
+The Self-Annotated Reddit Corpus (SARC), a large corpus for sarcasm research and for training and evaluating systems for sarcasm detection can be found here: http://nlp.cs.princeton.edu/SARC/2.0/. The file is too large to host on GitHub, and thus we have only provided the URL. 
 
 The SARC-train.csv and SARC-test.csv files contains a sizeable subset of the larger SARC dataset and can be found in the data/SARC folder. Each statement is furthermore self-annotated -- sarcasm is labeled by the author and not an independent annotator. 
 
 Should be cited as: Khodak, M., Saunshi, N., & Vodrahalli, K. (2017). A Large Self-Annotated Corpus for Sarcasm. arXiv preprint arXiv:1704.05579.
 
-## Paper on quote-response pairs 
+## Docs
 
-This paper (https://arxiv.org/pdf/1708.05582.pdf) discusses some ways to deal with quote-response pairs similar to what we have. 
+The docs folder contains both our final presentation in PDF form, as well as our NIPS style paper. We have provided both a PDF and the tex, sty, and bib files used to produce our final writeup. 
 
-We should consider word2vec and GloVe word embeddings (http://textminingonline.com/getting-started-with-word2vec-and-glove-in-python), as well as some sort of lexicon analysis (e.g. affect, sentiment, emotion, opinion analyses). 
+## Code 
 
-### word2vec resources
+### data.py 
 
-* Gensim documentation: https://radimrehurek.com/gensim/models/word2vec.html
-* word2vec tutorial: https://rare-technologies.com/word2vec-tutorial/
-* How to Develop Word Embeddings in Python with Gensim: https://machinelearningmastery.com/develop-word-embeddings-python-gensim/
+This python script contains code used to produce the SARC-train.csv and SARC-test.csv files. The JSON file from the SARC dataset is ~2.5 GB, so we have to split up the JSON file into 10 different files. This code then reads in the 10 JSON files containing all the SARC data and pulls the subset described by the indices in the train-balanced.csv and test-balanced.csv files found in the data/SARC folder. Note that running this script from this repo alone is not sufficient, as we have not included all the different JSON files, as it is too large to host on GitHub. 
 
-### GloVe resources
+### vectorization.py 
 
-* Stanford NLP GloVe repository: https://github.com/stanfordnlp/GloVe
+This python script performs the vectorization described in our writeup and presentation (word2vec, Afinn, NRC Word-Emotion association). It saves all of our feature and label vectors as numpy files, which once again are not included in this repository becasue they are too large to host. 
+
+### modeling.ipynb 
+
+This Jupyter Notebook contains all the modeling and hyperparameter optimization that was pefromed to obtain our experimental SARC results. 
